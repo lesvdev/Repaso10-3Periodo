@@ -1,0 +1,1299 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Repaso Grado 10° · Design Thinking · CASD José Prudencio Padilla</title>
+<style>
+  :root {
+    --verde:#1a7f5a; --verde-claro:#e8f5ee; --verde-hover:#156848;
+    --azul:#1a5f9e; --azul-claro:#e8f0fb; --morado:#6b3fa0; --morado-claro:#f0eafa;
+    --naranja:#c85f0a; --naranja-claro:#fdf0e6;
+    --teal:#0e8a8a; --teal-claro:#e0f5f5;
+    --rojo:#c0392b; --amarillo:#e6b800;
+    --gris-bg:#f5f6f8; --gris-borde:#dde1e8; --gris-texto:#4a4e5a;
+    --blanco:#ffffff; --negro:#1a1c22;
+    --radio:12px; --sombra:0 4px 18px rgba(0,0,0,.10);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--gris-bg);color:var(--negro);line-height:1.6;}
+
+  /* HEADER */
+  header{background:linear-gradient(135deg,var(--teal) 0%,#065555 100%);color:#fff;padding:28px 24px 20px;text-align:center;}
+  header .inst{font-size:.78rem;opacity:.8;text-transform:uppercase;letter-spacing:.08em;}
+  header h1{font-size:1.6rem;font-weight:800;margin:6px 0 4px;}
+  header .sub{font-size:.9rem;opacity:.85;}
+  .badge-row{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-top:12px;}
+  .badge{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3);border-radius:20px;padding:4px 14px;font-size:.78rem;font-weight:600;}
+
+  /* NAV */
+  nav.tabs{display:flex;gap:0;border-bottom:3px solid var(--gris-borde);background:#fff;overflow-x:auto;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.07);}
+  nav.tabs button{flex:1;min-width:140px;padding:14px 10px;border:none;background:none;font-size:.85rem;font-weight:600;color:var(--gris-texto);cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-3px;transition:all .2s;white-space:nowrap;}
+  nav.tabs button.active{color:var(--teal);border-bottom-color:var(--teal);background:var(--teal-claro);}
+  nav.tabs button:hover:not(.active){background:#f0f0f0;}
+
+  /* MAIN */
+  main{max-width:900px;margin:0 auto;padding:24px 16px 60px;}
+  section.tab-content{display:none;}
+  section.tab-content.active{display:block;}
+
+  /* CARDS */
+  .card{background:#fff;border-radius:var(--radio);box-shadow:var(--sombra);padding:24px;margin-bottom:20px;border-left:5px solid var(--teal);}
+  .card.azul{border-left-color:var(--azul);}
+  .card.morado{border-left-color:var(--morado);}
+  .card.naranja{border-left-color:var(--naranja);}
+  .card.verde{border-left-color:var(--verde);}
+  .card h2{font-size:1.15rem;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+  .card h3{font-size:.98rem;font-weight:700;margin:16px 0 8px;color:var(--gris-texto);}
+  .card p,.card li{font-size:.93rem;color:#333;margin-bottom:6px;}
+  .card ul{padding-left:18px;}
+
+  /* FASES DT */
+  .fases-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px;justify-content:center;}
+  .fase-card{flex:1;min-width:110px;max-width:160px;border-radius:10px;padding:14px 10px;text-align:center;border:2px solid;transition:transform .2s;}
+  .fase-card:hover{transform:translateY(-3px);}
+  .fase-card .num{font-size:1.4rem;font-weight:900;}
+  .fase-card .nombre{font-weight:700;font-size:.9rem;margin:4px 0 2px;}
+  .fase-card .desc{font-size:.75rem;}
+  .f1{border-color:#0e8a8a;background:#e0f5f5;color:#065555;}
+  .f2{border-color:#1a5f9e;background:#e8f0fb;color:#0d3d6e;}
+  .f3{border-color:#6b3fa0;background:#f0eafa;color:#4a1f80;}
+  .f4{border-color:#c85f0a;background:#fdf0e6;color:#8a3d00;}
+  .f5{border-color:#1a7f5a;background:#e8f5ee;color:#0d5c3e;}
+
+  /* HERRAMIENTAS GRID */
+  .herr-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin-top:14px;}
+  .herr-card{border:2px solid var(--gris-borde);border-radius:10px;padding:14px 12px;background:#fafafa;transition:box-shadow .2s,border-color .2s;cursor:default;}
+  .herr-card:hover{box-shadow:0 4px 14px rgba(0,0,0,.12);border-color:var(--teal);}
+  .herr-card .emoji{font-size:1.5rem;margin-bottom:6px;}
+  .herr-card .nombre{font-weight:700;font-size:.88rem;color:var(--teal);}
+  .herr-card .def{font-size:.78rem;color:#555;margin-top:4px;}
+
+  /* TRIADA */
+  .triada{display:flex;gap:14px;flex-wrap:wrap;margin-top:14px;}
+  .triada-item{flex:1;min-width:160px;border-radius:10px;padding:16px;border:2px solid;}
+  .triada-item .label{font-weight:800;font-size:1rem;margin-bottom:6px;}
+  .triada-item p{font-size:.84rem;}
+  .triada-item .ejemplo{margin-top:8px;font-size:.8rem;font-style:italic;background:rgba(0,0,0,.04);border-radius:6px;padding:6px 8px;}
+  .t1{border-color:var(--teal);background:var(--teal-claro);color:#065555;}
+  .t2{border-color:var(--naranja);background:var(--naranja-claro);color:#8a3d00;}
+  .t3{border-color:var(--morado);background:var(--morado-claro);color:#4a1f80;}
+
+  /* QUIZ */
+  .quiz-pregunta{background:#fff;border:2px solid var(--gris-borde);border-radius:10px;padding:18px;margin-bottom:14px;}
+  .quiz-pregunta p{font-weight:600;font-size:.94rem;margin-bottom:12px;}
+  .opciones{display:flex;flex-direction:column;gap:8px;}
+  .opcion{display:flex;align-items:center;gap:10px;padding:10px 14px;border:2px solid var(--gris-borde);border-radius:8px;cursor:pointer;transition:all .2s;font-size:.88rem;}
+  .opcion:hover{border-color:var(--azul);background:var(--azul-claro);}
+  .opcion.seleccionada{border-color:var(--azul);background:var(--azul-claro);}
+  .opcion.correcta{border-color:var(--verde)!important;background:var(--verde-claro)!important;}
+  .opcion.incorrecta{border-color:var(--rojo)!important;background:#fdecea!important;}
+  .opcion input[type=radio]{accent-color:var(--teal);}
+  .btn-verificar{background:var(--teal);color:#fff;border:none;border-radius:8px;padding:10px 24px;font-size:.9rem;font-weight:700;cursor:pointer;margin-top:10px;transition:background .2s;}
+  .btn-verificar:hover{background:#065555;}
+  .feedback{margin-top:10px;padding:10px 14px;border-radius:8px;font-size:.88rem;font-weight:600;display:none;}
+  .feedback.ok{background:var(--verde-claro);color:var(--verde);display:block;}
+  .feedback.mal{background:#fdecea;color:var(--rojo);display:block;}
+  .btn-reset{background:#fff;color:var(--gris-texto);border:2px solid var(--gris-borde);border-radius:8px;padding:8px 18px;font-size:.85rem;font-weight:600;cursor:pointer;margin-left:10px;}
+
+  /* SCORE */
+  .score-box{background:linear-gradient(135deg,var(--teal),#065555);color:#fff;border-radius:var(--radio);padding:22px;text-align:center;margin-top:16px;display:none;}
+  .score-box .numero{font-size:3rem;font-weight:900;}
+  .score-box .label{font-size:.9rem;opacity:.85;}
+
+  /* DRAG */
+  .drag-zone{border:2px dashed var(--gris-borde);border-radius:10px;min-height:50px;padding:10px;display:flex;flex-wrap:wrap;gap:8px;transition:border-color .2s;}
+  .drag-zone.over{border-color:var(--teal);background:var(--teal-claro);}
+  .drag-chip{background:var(--azul-claro);border:2px solid var(--azul);color:var(--azul);border-radius:20px;padding:6px 16px;font-size:.84rem;font-weight:600;cursor:grab;user-select:none;transition:transform .15s,opacity .15s;}
+  .drag-chip:active{cursor:grabbing;opacity:.7;}
+  .drag-chip.correcto{background:#e8f5ee;border-color:var(--verde);color:var(--verde);}
+  .drag-chip.incorrecto{background:#fdecea;border-color:var(--rojo);color:var(--rojo);}
+
+  /* GRÁFICOS TABLA */
+  .graficos-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-top:14px;}
+  .grafico-card{border:2px solid var(--gris-borde);border-radius:10px;padding:16px;background:#fafafa;transition:box-shadow .2s;}
+  .grafico-card:hover{box-shadow:0 4px 14px rgba(0,0,0,.12);}
+  .grafico-card .g-title{font-weight:700;font-size:.9rem;color:var(--teal);margin-bottom:6px;}
+  .grafico-card .g-uso{font-size:.8rem;color:#333;margin-bottom:4px;}
+  .grafico-card .g-ven{font-size:.78rem;color:var(--verde);}
+  .grafico-card .g-des{font-size:.78rem;color:var(--rojo);}
+  .grafico-card .g-ej{font-size:.78rem;color:#666;font-style:italic;margin-top:6px;}
+  .tag{display:inline-block;border-radius:12px;padding:2px 10px;font-size:.73rem;font-weight:700;margin-bottom:8px;}
+  .tag.cuanti{background:#e8f0fb;color:var(--azul);}
+  .tag.cuali{background:var(--morado-claro);color:var(--morado);}
+
+  /* PASOS */
+  .pasos-row{display:flex;flex-direction:column;gap:10px;margin-top:14px;}
+  .paso{display:flex;gap:14px;align-items:flex-start;background:#fafafa;border:1px solid var(--gris-borde);border-radius:10px;padding:14px;}
+  .paso .n{background:var(--teal);color:#fff;border-radius:50%;width:30px;height:30px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.9rem;}
+  .paso .texto .nombre{font-weight:700;font-size:.9rem;color:var(--teal);}
+  .paso .texto .sub{font-size:.82rem;color:#555;}
+
+  /* ESCENARIO */
+  .escenario{background:linear-gradient(135deg,var(--naranja-claro),#fff9f0);border:2px solid #e8b87a;border-radius:12px;padding:20px;margin-bottom:16px;}
+  .escenario .titulo{font-weight:800;font-size:1rem;color:var(--naranja);margin-bottom:8px;display:flex;align-items:center;gap:8px;}
+  .escenario textarea{width:100%;border:2px solid var(--gris-borde);border-radius:8px;padding:10px;font-size:.88rem;font-family:inherit;resize:vertical;margin-top:8px;min-height:80px;}
+  .escenario textarea:focus{outline:none;border-color:var(--naranja);}
+
+  /* REGISTRO */
+  .registro-bar{background:#fff;border-bottom:3px solid var(--teal);padding:14px 20px;display:flex;gap:12px;flex-wrap:wrap;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.07);}
+  .registro-bar label{font-size:.82rem;font-weight:700;color:var(--gris-texto);}
+  .registro-bar input,.registro-bar select{border:2px solid var(--gris-borde);border-radius:8px;padding:7px 12px;font-size:.88rem;font-family:inherit;outline:none;transition:border-color .2s;background:#fafafa;}
+  .registro-bar input:focus,.registro-bar select:focus{border-color:var(--teal);}
+  .registro-bar input{min-width:220px;}
+  .registro-bar .req{color:var(--rojo);font-weight:700;}
+  .registro-ok{display:none;background:var(--teal-claro);color:var(--teal);border-radius:8px;padding:6px 14px;font-size:.83rem;font-weight:700;align-items:center;gap:6px;}
+
+  /* PUNTAJE FINAL */
+  #puntaje-final{background:linear-gradient(135deg,var(--teal),#065555);color:#fff;border-radius:var(--radio);padding:28px;text-align:center;margin-top:20px;}
+  #puntaje-final h2{font-size:1.4rem;margin-bottom:8px;}
+  #puntaje-final .gran-numero{font-size:4rem;font-weight:900;margin:10px 0;}
+  .barra-progreso{background:rgba(255,255,255,.2);border-radius:30px;height:18px;margin-top:12px;overflow:hidden;}
+  .barra-fill{height:100%;border-radius:30px;background:linear-gradient(90deg,#4ddb8f,#1de07d);transition:width 1s ease;}
+
+  /* BLANK SELECT */
+  .blank-select{display:inline-block;margin:0 4px;}
+  .blank-select select{border:2px solid var(--teal);border-radius:6px;padding:3px 8px;font-size:.88rem;font-weight:600;color:var(--teal);background:var(--teal-claro);cursor:pointer;}
+
+  /* MODAL */
+  .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:500;display:flex;align-items:center;justify-content:center;padding:16px;}
+  .modal-box{background:#fff;border-radius:var(--radio);max-width:700px;width:100%;max-height:88vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.25);}
+  .modal-header{background:linear-gradient(135deg,var(--teal),#065555);color:#fff;padding:20px 24px;border-radius:var(--radio) var(--radio) 0 0;display:flex;justify-content:space-between;align-items:center;}
+  .modal-header h3{font-size:1.1rem;font-weight:800;}
+  .modal-close{background:rgba(255,255,255,.2);border:none;color:#fff;border-radius:50%;width:32px;height:32px;font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+  .modal-body{padding:20px 24px;}
+  .reporte-bloque{background:#f8f9fb;border:1px solid var(--gris-borde);border-radius:8px;padding:14px;margin-bottom:12px;font-size:.84rem;}
+  .reporte-bloque h4{font-weight:700;color:var(--teal);margin-bottom:8px;font-size:.9rem;}
+  .reporte-item{padding:5px 0;border-bottom:1px dashed #ddd;display:flex;gap:8px;}
+  .reporte-item:last-child{border:none;}
+  .reporte-item .ri-label{color:#666;min-width:130px;flex-shrink:0;font-size:.82rem;}
+  .reporte-item .ri-val{font-weight:600;color:var(--negro);}
+  .btn-copiar{background:var(--azul);color:#fff;border:none;border-radius:8px;padding:11px 22px;font-size:.9rem;font-weight:700;cursor:pointer;}
+  .copiado-msg{display:none;color:var(--verde);font-weight:700;font-size:.85rem;margin-left:10px;}
+
+  /* RESPONSIVE */
+  @media(max-width:600px){
+    header h1{font-size:1.25rem;}
+    nav.tabs button{font-size:.78rem;padding:12px 6px;}
+    .card{padding:16px;}
+    .fases-row{gap:6px;}
+    .fase-card{min-width:90px;}
+    .registro-bar{flex-direction:column;align-items:stretch;}
+    .registro-bar input{min-width:unset;}
+  }
+  /* BTN PDF */
+  .btn-pdf{background:linear-gradient(135deg,#c0392b,#922b21);color:#fff;border:none;border-radius:8px;padding:11px 22px;font-size:.9rem;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:7px;transition:opacity .2s;}
+  .btn-pdf:hover{opacity:.88;}
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+
+<header>
+  <div class="inst">Institución Educativa CASD José Prudencio Padilla · Barrancabermeja</div>
+  <h1>📚 Repaso Prueba Acumulativa · Grado 10°</h1>
+  <div class="sub">Design Thinking · Recolección de Información · Datos Cuantitativos y Cualitativos</div>
+  <div class="badge-row">
+    <span class="badge">🧠 Design Thinking</span>
+    <span class="badge">🛠️ Herramientas</span>
+    <span class="badge">📊 Datos Cuantitativos</span>
+    <span class="badge">🔬 Datos Cualitativos</span>
+  </div>
+</header>
+
+<!-- BARRA DE REGISTRO -->
+<div class="registro-bar" id="registro-bar">
+  <div style="display:flex;flex-direction:column;gap:3px;">
+    <label for="est-nombre">Nombres y apellidos <span class="req">*</span></label>
+    <input id="est-nombre" type="text" placeholder="Ej: Valentina Torres Gómez" maxlength="80" oninput="actualizarRegistro()"/>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:3px;">
+    <label for="est-grado">Grado <span class="req">*</span></label>
+    <select id="est-grado" onchange="actualizarRegistro()">
+      <option value="">-- selecciona --</option>
+      <option>1001</option><option>1002</option><option>1003</option>
+      <option>1004</option><option>1005</option><option>1006</option>
+    </select>
+  </div>
+  <div class="registro-ok" id="registro-ok">✅ Registrado</div>
+</div>
+<div id="aviso-registro" style="background:#fff3cd;border-bottom:3px solid var(--amarillo);padding:10px 20px;text-align:center;font-size:.86rem;font-weight:600;color:#7a5800;">
+  ⚠️ Ingresa tu <strong>nombre completo</strong> y <strong>grado</strong> antes de comenzar.
+</div>
+
+<nav class="tabs" role="tablist">
+  <button class="active" onclick="cambiarTab('dt',this)">🧠 Design Thinking</button>
+  <button onclick="cambiarTab('herramientas',this)">🛠️ Herramientas</button>
+  <button onclick="cambiarTab('cuanti',this)">📊 Datos Cuantitativos</button>
+  <button onclick="cambiarTab('cuali',this)">🔬 Datos Cualitativos</button>
+  <button onclick="cambiarTab('quiz',this)">✅ Quiz Final</button>
+</nav>
+
+<main>
+
+<!-- ═══════════════════════════════
+     TAB 1: DESIGN THINKING
+══════════════════════════════════ -->
+<section class="tab-content active" id="tab-dt">
+
+  <div class="card">
+    <h2>🧠 ¿Qué es el Design Thinking?</h2>
+    <p>El <strong>Design Thinking</strong> es una metodología centrada en las personas que permite resolver problemas reales de forma creativa y estructurada. Antes de proponer soluciones, debemos <strong>escuchar y observar</strong> para entender el problema real.</p>
+    <div style="background:var(--teal-claro);border-radius:8px;padding:12px;margin-top:12px;border-left:4px solid var(--teal);">
+      <strong>Conexión ODS:</strong> La evidencia inicial permite demostrar que el problema afecta al entorno escolar y se relaciona con una meta de desarrollo sostenible.
+    </div>
+    <div class="fases-row">
+      <div class="fase-card f1">
+        <div class="num">1</div>
+        <div class="nombre">Empatizar</div>
+        <div class="desc">Conocer necesidades reales de las personas</div>
+      </div>
+      <div class="fase-card f2">
+        <div class="num">2</div>
+        <div class="nombre">Definir</div>
+        <div class="desc">Precisar el problema con claridad</div>
+      </div>
+      <div class="fase-card f3">
+        <div class="num">3</div>
+        <div class="nombre">Idear</div>
+        <div class="desc">Pensar soluciones creativas</div>
+      </div>
+      <div class="fase-card f4">
+        <div class="num">4</div>
+        <div class="nombre">Prototipar</div>
+        <div class="desc">Construir una propuesta concreta</div>
+      </div>
+      <div class="fase-card f5">
+        <div class="num">5</div>
+        <div class="nombre">Evaluar</div>
+        <div class="desc">Mejorar con evidencia real</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card azul">
+    <h2>📌 Pregunta guía de la investigación</h2>
+    <p>Antes de recolectar información, todo grupo debe hacerse la pregunta fundamental:</p>
+    <div style="font-size:1.3rem;font-weight:800;text-align:center;color:var(--azul);background:var(--azul-claro);border-radius:10px;padding:20px;margin:14px 0;">
+      ¿Cómo sabemos que nuestro problema realmente existe?
+    </div>
+    <p>La recolección de información fortalece la fase de <strong>Empatizar</strong> y ayuda a justificar el proyecto con datos reales.</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin-top:14px;">
+      <div style="background:#fff;border-radius:8px;padding:12px;border:2px solid var(--azul);">
+        <div style="font-weight:700;color:var(--azul);margin-bottom:4px;">1. Comprender el problema</div>
+        <div style="font-size:.82rem;">¿Qué necesitamos saber exactamente?</div>
+      </div>
+      <div style="background:#fff;border-radius:8px;padding:12px;border:2px solid var(--azul);">
+        <div style="font-weight:700;color:var(--azul);margin-bottom:4px;">2. Elegir herramientas</div>
+        <div style="font-size:.82rem;">¿Cuál técnica se adapta mejor?</div>
+      </div>
+      <div style="background:#fff;border-radius:8px;padding:12px;border:2px solid var(--azul);">
+        <div style="font-weight:700;color:var(--azul);margin-bottom:4px;">3. Planear evidencias</div>
+        <div style="font-size:.82rem;">¿Cómo guardaremos los datos de forma válida?</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ejercicio: ordena las fases -->
+  <div class="card naranja">
+    <h2>🎯 Ejercicio 1 · Completa las fases</h2>
+    <p>Selecciona la fase correcta para cada descripción:</p>
+    <div style="margin-top:14px;display:flex;flex-direction:column;gap:12px;font-size:.93rem;">
+      <div>a. Realizar entrevistas y encuestas para conocer la necesidad real corresponde a la fase de
+        <span class="blank-select"><select id="e1" onchange="verificarEjercicio1()">
+          <option value="">-- elige --</option>
+          <option>Empatizar</option><option>Definir</option><option>Prototipar</option>
+        </select></span>.
+      </div>
+      <div>b. Construir un modelo físico o digital de la solución es la fase de
+        <span class="blank-select"><select id="e2" onchange="verificarEjercicio1()">
+          <option value="">-- elige --</option>
+          <option>Idear</option><option>Prototipar</option><option>Evaluar</option>
+        </select></span>.
+      </div>
+      <div>c. Recoger retroalimentación de los usuarios para mejorar la propuesta corresponde a
+        <span class="blank-select"><select id="e3" onchange="verificarEjercicio1()">
+          <option value="">-- elige --</option>
+          <option>Empatizar</option><option>Definir</option><option>Evaluar</option>
+        </select></span>.
+      </div>
+      <div>d. Después de entender el problema, delimitarlo con precisión es la fase de
+        <span class="blank-select"><select id="e4" onchange="verificarEjercicio1()">
+          <option value="">-- elige --</option>
+          <option>Definir</option><option>Idear</option><option>Empatizar</option>
+        </select></span>.
+      </div>
+    </div>
+    <div id="fb-e1" class="feedback" style="margin-top:14px;"></div>
+  </div>
+
+  <!-- Escenario DT -->
+  <div class="escenario">
+    <div class="titulo">🏫 Escenario · Design Thinking en el CASD</div>
+    <p style="font-size:.9rem;margin-bottom:10px;">
+      <em>Un grupo de grado 10° identifica que muchos estudiantes botan basura en los pasillos del colegio. Quieren diseñar una solución con Design Thinking vinculada a los ODS.</em>
+    </p>
+    <strong style="font-size:.88rem;color:var(--naranja);">A. ¿En qué fase del Design Thinking se encuentra el grupo al identificar este problema? Justifica.</strong>
+    <textarea placeholder="El grupo se encuentra en la fase de... porque..."></textarea>
+    <strong style="font-size:.88rem;color:var(--naranja);margin-top:12px;display:block;">B. ¿Con qué ODS podrían conectar su proyecto? Explica la relación.</strong>
+    <textarea placeholder="Este proyecto se relaciona con el ODS... porque..."></textarea>
+    <strong style="font-size:.88rem;color:var(--naranja);margin-top:12px;display:block;">C. ¿Qué herramientas usarías para demostrar que el problema realmente existe?</strong>
+    <textarea placeholder="Para recolectar evidencia usaría..."></textarea>
+    <details style="margin-top:14px;border:1px solid #e8b87a;border-radius:8px;padding:10px;">
+      <summary style="cursor:pointer;font-weight:700;color:var(--naranja);font-size:.88rem;">💡 Ver pistas</summary>
+      <div style="font-size:.85rem;margin-top:8px;color:#555;">
+        <strong>A.</strong> En la fase de Empatizar, porque están conociendo la situación real antes de proponer soluciones.<br>
+        <strong>B.</strong> ODS 11 (Ciudades y comunidades sostenibles) o ODS 15 (Vida de ecosistemas terrestres), pues la basura afecta el entorno escolar.<br>
+        <strong>C.</strong> Observación directa, lista de chequeo, registro fotográfico, encuesta a estudiantes.
+      </div>
+    </details>
+  </div>
+
+</section>
+
+<!-- ═══════════════════════════════
+     TAB 2: HERRAMIENTAS
+══════════════════════════════════ -->
+<section class="tab-content" id="tab-herramientas">
+
+  <!-- Triada técnica-herramienta-instrumento -->
+  <div class="card">
+    <h2>🔑 Conceptos clave: Técnica, Herramienta e Instrumento</h2>
+    <p>Tres palabras parecidas, pero con funciones diferentes dentro del proyecto.</p>
+    <div class="triada">
+      <div class="triada-item t1">
+        <div class="label">🌐 Técnica</div>
+        <p>Forma <strong>general</strong> de recolectar información.</p>
+        <div class="ejemplo">Ejemplos: encuesta, entrevista, observación</div>
+      </div>
+      <div class="triada-item t2">
+        <div class="label">🔧 Herramienta</div>
+        <p>Medio que <strong>permite aplicar</strong> la técnica.</p>
+        <div class="ejemplo">Ejemplos: Google Forms, cuaderno, celular, tabla</div>
+      </div>
+      <div class="triada-item t3">
+        <div class="label">📋 Instrumento</div>
+        <p>Formato concreto con <strong>preguntas o criterios</strong>.</p>
+        <div class="ejemplo">Ejemplos: formulario, lista de chequeo, guía de preguntas</div>
+      </div>
+    </div>
+    <div style="background:var(--naranja-claro);border-radius:8px;padding:12px;margin-top:14px;border-left:4px solid var(--naranja);">
+      <strong>Ejemplo completo:</strong> Técnica = encuesta · Herramienta = Google Forms · Instrumento = formulario con 10 preguntas
+    </div>
+  </div>
+
+  <!-- Mapa de herramientas -->
+  <div class="card azul">
+    <h2>🗺️ Las 8 herramientas de recolección</h2>
+    <p>La elección depende de lo que el grupo <strong>necesite saber del problema</strong>.</p>
+    <div class="herr-grid">
+      <div class="herr-card">
+        <div class="emoji">📝</div>
+        <div class="nombre">Encuesta</div>
+        <div class="def">Obtiene porcentajes y tendencias de muchas personas. Combina preguntas cerradas y abiertas.</div>
+      </div>
+      <div class="herr-card">
+        <div class="emoji">🎙️</div>
+        <div class="nombre">Entrevista</div>
+        <div class="def">Conversación profunda con una persona clave: docente, directivo, estudiante o padre de familia.</div>
+      </div>
+      <div class="herr-card">
+        <div class="emoji">👁️</div>
+        <div class="nombre">Observación directa</div>
+        <div class="def">Registrar comportamientos, lugares, horarios o situaciones sin intervenir en ellos.</div>
+      </div>
+      <div class="herr-card">
+        <div class="emoji">✅</div>
+        <div class="nombre">Lista de chequeo</div>
+        <div class="def">Verificar si ciertos criterios se cumplen o no: canecas, señalización, orden. Respuesta: Sí / No.</div>
+      </div>
+      <div class="herr-card">
+        <div class="emoji">📷</div>
+        <div class="nombre">Registro fotográfico</div>
+        <div class="def">Evidencia visual del estado inicial. Evitar rostros sin autorización.</div>
+      </div>
+      <div class="herr-card">
+        <div class="emoji">📓</div>
+        <div class="nombre">Diario de campo</div>
+        <div class="def">Registra fecha, lugar, observaciones y reflexiones del grupo durante el proceso.</div>
+      </div>
+      <div class="herr-card">
+        <div class="emoji">💬</div>
+        <div class="nombre">Grupo focal</div>
+        <div class="def">Conversación guiada con varias personas para comparar puntos de vista sobre una situación.</div>
+      </div>
+      <div class="herr-card">
+        <div class="emoji">🔍</div>
+        <div class="nombre">Revisión documental</div>
+        <div class="def">Manual de convivencia, fuentes oficiales, antecedentes o información ODS.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ¿Qué herramienta elegir? -->
+  <div class="card verde">
+    <h2>🤔 ¿Qué herramienta le conviene a mi proyecto?</h2>
+    <p>El punto de partida es siempre la pregunta: <strong>¿qué necesitamos saber?</strong></p>
+    <div style="display:flex;flex-direction:column;gap:10px;margin-top:14px;">
+      <div style="display:flex;gap:12px;align-items:center;background:var(--verde-claro);border-radius:8px;padding:12px;">
+        <span style="font-size:1.1rem;">👥</span>
+        <span style="font-size:.9rem;"><strong>¿Necesitamos opiniones de muchas personas?</strong> → Usamos <strong>ENCUESTA</strong></span>
+      </div>
+      <div style="display:flex;gap:12px;align-items:center;background:#e8f0fb;border-radius:8px;padding:12px;">
+        <span style="font-size:1.1rem;">🗣️</span>
+        <span style="font-size:.9rem;"><strong>¿Necesitamos profundizar en experiencias?</strong> → Usamos <strong>ENTREVISTA o GRUPO FOCAL</strong></span>
+      </div>
+      <div style="display:flex;gap:12px;align-items:center;background:var(--naranja-claro);border-radius:8px;padding:12px;">
+        <span style="font-size:1.1rem;">👀</span>
+        <span style="font-size:.9rem;"><strong>¿Necesitamos ver comportamientos o espacios?</strong> → Usamos <strong>OBSERVACIÓN, LISTA DE CHEQUEO, FOTOGRAFÍA o DIARIO</strong></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Paso a paso -->
+  <div class="card morado">
+    <h2>📋 Paso a paso para recolectar información</h2>
+    <p>Una ruta corta para pasar de la idea a la evidencia:</p>
+    <div class="pasos-row">
+      <div class="paso"><div class="n">1</div><div class="texto"><div class="nombre">Definir</div><div class="sub">¿Qué necesitamos saber del problema?</div></div></div>
+      <div class="paso"><div class="n">2</div><div class="texto"><div class="nombre">Elegir población</div><div class="sub">¿A quiénes consultamos u observamos?</div></div></div>
+      <div class="paso"><div class="n">3</div><div class="texto"><div class="nombre">Seleccionar herramienta</div><div class="sub">Encuesta, entrevista, observación u otra.</div></div></div>
+      <div class="paso"><div class="n">4</div><div class="texto"><div class="nombre">Diseñar instrumento</div><div class="sub">Preguntas, criterios o tabla de registro.</div></div></div>
+      <div class="paso"><div class="n">5</div><div class="texto"><div class="nombre">Aplicar</div><div class="sub">Recoger información de forma respetuosa.</div></div></div>
+      <div class="paso"><div class="n">6</div><div class="texto"><div class="nombre">Guardar evidencias</div><div class="sub">Capturas, fotos, notas y respuestas.</div></div></div>
+    </div>
+  </div>
+
+  <!-- Ética de la información -->
+  <div class="card naranja">
+    <h2>⚖️ Ética al recolectar información</h2>
+    <p>La evidencia debe ser <strong>útil, respetuosa y segura</strong>. Siempre cumple estas reglas:</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin-top:12px;">
+      <div style="background:#fff;border-radius:8px;padding:12px;border:2px solid var(--naranja);">
+        <div style="font-weight:700;font-size:.88rem;margin-bottom:4px;">✅ Pedir permiso</div>
+        <div style="font-size:.82rem;">Nadie está obligado a responder. Siempre presenta tu propósito.</div>
+      </div>
+      <div style="background:#fff;border-radius:8px;padding:12px;border:2px solid var(--naranja);">
+        <div style="font-weight:700;font-size:.88rem;margin-bottom:4px;">✅ No datos sensibles</div>
+        <div style="font-size:.82rem;">Evitar información personal innecesaria como nombre completo o dirección.</div>
+      </div>
+      <div style="background:#fff;border-radius:8px;padding:12px;border:2px solid var(--naranja);">
+        <div style="font-weight:700;font-size:.88rem;margin-bottom:4px;">✅ Cuidar imágenes</div>
+        <div style="font-size:.82rem;">No enfocar rostros sin autorización en fotos o videos.</div>
+      </div>
+      <div style="background:#fff;border-radius:8px;padding:12px;border:2px solid var(--naranja);">
+        <div style="font-weight:700;font-size:.88rem;margin-bottom:4px;">✅ No inventar</div>
+        <div style="font-size:.82rem;">Registrar respuestas reales y completas tal como las dieron.</div>
+      </div>
+    </div>
+    <div style="background:#fdf0e6;border-radius:8px;padding:12px;margin-top:12px;text-align:center;font-size:.88rem;font-weight:700;color:var(--naranja);">
+      💬 Frase sugerida al presentarse: "Somos estudiantes de grado 10° y esta información será usada únicamente con fines académicos."
+    </div>
+  </div>
+
+  <!-- Ejercicio arrastrar herramientas -->
+  <div class="card azul">
+    <h2>🎯 Ejercicio 2 · ¿Qué herramienta usarías?</h2>
+    <p>Lee cada situación y selecciona la herramienta más adecuada:</p>
+    <div style="display:flex;flex-direction:column;gap:12px;margin-top:14px;">
+
+      <div class="quiz-pregunta">
+        <p>📊 Quieres saber qué porcentaje de estudiantes del colegio considera que el agua potable se desperdicia. ¿Qué técnica usas?</p>
+        <div class="opciones">
+          <label class="opcion"><input type="radio" name="h1" value="b"> Observación directa</label>
+          <label class="opcion"><input type="radio" name="h1" value="a"> Encuesta</label>
+          <label class="opcion"><input type="radio" name="h1" value="c"> Diario de campo</label>
+        </div>
+        <button class="btn-verificar" onclick="verificarODS('h1','a','fb-h1')">Verificar</button>
+        <div id="fb-h1" class="feedback"></div>
+      </div>
+
+      <div class="quiz-pregunta">
+        <p>🎙️ Necesitas entender <em>por qué</em> un directivo cree que el problema de basuras es difícil de resolver. ¿Qué técnica usas?</p>
+        <div class="opciones">
+          <label class="opcion"><input type="radio" name="h2" value="a"> Encuesta</label>
+          <label class="opcion"><input type="radio" name="h2" value="b"> Entrevista</label>
+          <label class="opcion"><input type="radio" name="h2" value="c"> Lista de chequeo</label>
+        </div>
+        <button class="btn-verificar" onclick="verificarODS('h2','b','fb-h2')">Verificar</button>
+        <div id="fb-h2" class="feedback"></div>
+      </div>
+
+      <div class="quiz-pregunta">
+        <p>✅ Para verificar si los baños del colegio tienen jabón, papel y canecas en buen estado, usas:</p>
+        <div class="opciones">
+          <label class="opcion"><input type="radio" name="h3" value="a"> Grupo focal</label>
+          <label class="opcion"><input type="radio" name="h3" value="b"> Encuesta</label>
+          <label class="opcion"><input type="radio" name="h3" value="c"> Lista de chequeo</label>
+        </div>
+        <button class="btn-verificar" onclick="verificarODS('h3','c','fb-h3')">Verificar</button>
+        <div id="fb-h3" class="feedback"></div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ═══════════════════════════════
+     TAB 3: DATOS CUANTITATIVOS
+══════════════════════════════════ -->
+<section class="tab-content" id="tab-cuanti">
+
+  <div class="card">
+    <h2>📊 ¿Qué son los datos cuantitativos?</h2>
+    <p>Los datos cuantitativos son aquellos expresados con <strong>números, cantidades y mediciones objetivas</strong>. Son útiles para comparar, calcular porcentajes y detectar tendencias.</p>
+    <div style="display:flex;gap:14px;flex-wrap:wrap;margin-top:14px;">
+      <div style="flex:1;min-width:200px;background:var(--azul-claro);border-radius:10px;padding:16px;border:2px solid var(--azul);">
+        <div style="font-size:1.5rem;text-align:center;">🔢</div>
+        <div style="font-weight:700;color:var(--azul);text-align:center;margin:6px 0;">CUANTITATIVO</div>
+        <ul style="font-size:.83rem;padding-left:16px;margin-top:6px;">
+          <li>Expresado en <strong>números</strong></li>
+          <li>Permite calcular <strong>porcentajes</strong></li>
+          <li>Responde: ¿cuántos?, ¿cuánto?, ¿con qué frecuencia?</li>
+          <li>Obtenido mediante <strong>encuestas o conteos</strong></li>
+        </ul>
+      </div>
+      <div style="flex:1;min-width:200px;background:var(--morado-claro);border-radius:10px;padding:16px;border:2px solid var(--morado);">
+        <div style="font-size:1.5rem;text-align:center;">💬</div>
+        <div style="font-weight:700;color:var(--morado);text-align:center;margin:6px 0;">CUALITATIVO</div>
+        <ul style="font-size:.83rem;padding-left:16px;margin-top:6px;">
+          <li>Expresado en <strong>palabras</strong></li>
+          <li>Describe opiniones y experiencias</li>
+          <li>Responde: ¿por qué?, ¿cómo se siente?</li>
+          <li>Obtenido mediante <strong>entrevistas o grupos focales</strong></li>
+        </ul>
+      </div>
+    </div>
+    <div style="background:var(--teal-claro);border-radius:8px;padding:12px;margin-top:12px;text-align:center;font-size:.9rem;">
+      <strong>Compararlos</strong> ayuda a comprender mejor las necesidades de quienes usan nuestro prototipo.
+    </div>
+  </div>
+
+  <!-- Ejercicio clasificar datos -->
+  <div class="card azul">
+    <h2>🎯 Ejercicio · Clasifica el dato</h2>
+    <p>Para cada dato, indica si es <strong>cuantitativo</strong> o <strong>cualitativo</strong>:</p>
+    <div style="display:flex;flex-direction:column;gap:10px;margin-top:14px;">
+      <div class="quiz-pregunta" style="padding:14px;">
+        <p>"El 70% de los estudiantes afirma que bota basura porque no hay canecas cerca."</p>
+        <div class="opciones">
+          <label class="opcion"><input type="radio" name="c1" value="a"> Cuantitativo</label>
+          <label class="opcion"><input type="radio" name="c1" value="b"> Cualitativo</label>
+        </div>
+        <button class="btn-verificar" onclick="verificarODS('c1','a','fb-c1')">Verificar</button>
+        <div id="fb-c1" class="feedback"></div>
+      </div>
+      <div class="quiz-pregunta" style="padding:14px;">
+        <p>"Los estudiantes sienten que el colegio no les da ejemplo en el manejo de residuos."</p>
+        <div class="opciones">
+          <label class="opcion"><input type="radio" name="c2" value="a"> Cuantitativo</label>
+          <label class="opcion"><input type="radio" name="c2" value="b"> Cualitativo</label>
+        </div>
+        <button class="btn-verificar" onclick="verificarODS('c2','b','fb-c2')">Verificar</button>
+        <div id="fb-c2" class="feedback"></div>
+      </div>
+      <div class="quiz-pregunta" style="padding:14px;">
+        <p>"Se observaron 38 residuos en el patio durante el descanso del lunes."</p>
+        <div class="opciones">
+          <label class="opcion"><input type="radio" name="c3" value="a"> Cuantitativo</label>
+          <label class="opcion"><input type="radio" name="c3" value="b"> Cualitativo</label>
+        </div>
+        <button class="btn-verificar" onclick="verificarODS('c3','a','fb-c3')">Verificar</button>
+        <div id="fb-c3" class="feedback"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Gráficos cuantitativos -->
+  <div class="card verde">
+    <h2>📈 Gráficos para datos cuantitativos</h2>
+    <p>Cada gráfico tiene un uso específico. Elegir bien el gráfico hace que los datos sean más comprensibles.</p>
+    <div class="graficos-grid">
+      <div class="grafico-card">
+        <span class="tag cuanti">Cuantitativo</span>
+        <div class="g-title">📊 Gráfico de barras</div>
+        <div class="g-uso"><strong>Uso:</strong> Comparar cantidades entre diferentes grupos o categorías.</div>
+        <div class="g-ven">✅ Fácil de leer y comparar rápidamente.</div>
+        <div class="g-des">❌ No muestra la distribución ni la relación entre variables.</div>
+        <div class="g-ej">Ej: número de estudiantes que prefieren distintas funciones del prototipo.</div>
+      </div>
+      <div class="grafico-card">
+        <span class="tag cuanti">Cuantitativo</span>
+        <div class="g-title">📉 Histograma</div>
+        <div class="g-uso"><strong>Uso:</strong> Analizar datos continuos agrupados en intervalos.</div>
+        <div class="g-ven">✅ Muestra cómo se distribuyen y concentran los datos.</div>
+        <div class="g-des">❌ No permite comparar categorías ni ver cada dato individual.</div>
+        <div class="g-ej">Ej: intervalos de 0–10, 11–20 y 21–30 minutos de uso diario.</div>
+      </div>
+      <div class="grafico-card">
+        <span class="tag cuanti">Cuantitativo</span>
+        <div class="g-title">📈 Gráfico de líneas</div>
+        <div class="g-uso"><strong>Uso:</strong> Mostrar cómo cambia una cantidad a lo largo del tiempo.</div>
+        <div class="g-ven">✅ Permite visualizar tendencias y evolución rápidamente.</div>
+        <div class="g-des">❌ No es adecuado para comparar muchas categorías a la vez.</div>
+        <div class="g-ej">Ej: usuarios activos del prototipo durante una semana.</div>
+      </div>
+      <div class="grafico-card">
+        <span class="tag cuanti">Cuantitativo</span>
+        <div class="g-title">🥧 Gráfico circular</div>
+        <div class="g-uso"><strong>Uso:</strong> Representar proporciones o porcentajes de un total.</div>
+        <div class="g-ven">✅ Permite ver con claridad cómo se divide el feedback.</div>
+        <div class="g-des">❌ Difícil de interpretar con más de cinco categorías.</div>
+        <div class="g-ej">Ej: clasifica los comentarios en positivo, negativo y neutro.</div>
+      </div>
+      <div class="grafico-card">
+        <span class="tag cuanti">Cuantitativo</span>
+        <div class="g-title">🔵 Diagrama de dispersión</div>
+        <div class="g-uso"><strong>Uso:</strong> Relacionar dos variables numéricas al mismo tiempo.</div>
+        <div class="g-ven">✅ Ayuda a identificar patrones, tendencias o agrupaciones.</div>
+        <div class="g-des">❌ Requiere interpretación más avanzada.</div>
+        <div class="g-ej">Ej: compara minutos de uso vs. nivel de satisfacción del prototipo.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ejercicio elegir gráfico -->
+  <div class="card naranja">
+    <h2>🎯 Ejercicio · ¿Qué gráfico uso?</h2>
+    <p>Selecciona el gráfico más adecuado para cada situación:</p>
+    <div style="display:flex;flex-direction:column;gap:12px;margin-top:14px;">
+      <div class="quiz-pregunta">
+        <p>📅 Quieres mostrar cómo aumentó el número de usuarios de tu prototipo a lo largo de 5 días.</p>
+        <div class="opciones">
+          <label class="opcion"><input type="radio" name="g1" value="a"> Gráfico de barras</label>
+          <label class="opcion"><input type="radio" name="g1" value="b"> Gráfico de líneas</label>
+          <label class="opcion"><input type="radio" name="g1" value="c"> Gráfico circular</label>
+        </div>
+        <button class="btn-verificar" onclick="verificarODS('g1','b','fb-g1')">Verificar</button>
+        <div id="fb-g1" class="feedback"></div>
+      </div>
+      <div class="quiz-pregunta">
+        <p>🥧 De 30 respuestas obtenidas, el 60% fue positivo, el 30% neutro y el 10% negativo. ¿Qué gráfico lo muestra mejor?</p>
+        <div class="opciones">
+          <label class="opcion"><input type="radio" name="g2" value="a"> Histograma</label>
+          <label class="opcion"><input type="radio" name="g2" value="b"> Diagrama de dispersión</label>
+          <label class="opcion"><input type="radio" name="g2" value="c"> Gráfico circular</label>
+        </div>
+        <button class="btn-verificar" onclick="verificarODS('g2','c','fb-g2')">Verificar</button>
+        <div id="fb-g2" class="feedback"></div>
+      </div>
+      <div class="quiz-pregunta">
+        <p>📊 Tienes los resultados de 4 grupos diferentes y quieres comparar cuántos encuestados eligió cada función de tu prototipo.</p>
+        <div class="opciones">
+          <label class="opcion"><input type="radio" name="g3" value="a"> Gráfico de barras</label>
+          <label class="opcion"><input type="radio" name="g3" value="b"> Gráfico de líneas</label>
+          <label class="opcion"><input type="radio" name="g3" value="c"> Histograma</label>
+        </div>
+        <button class="btn-verificar" onclick="verificarODS('g3','a','fb-g3')">Verificar</button>
+        <div id="fb-g3" class="feedback"></div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ═══════════════════════════════
+     TAB 4: DATOS CUALITATIVOS
+══════════════════════════════════ -->
+<section class="tab-content" id="tab-cuali">
+
+  <div class="card morado">
+    <h2>🔬 Datos cualitativos en Design Thinking</h2>
+    <p>En Design Thinking, las <strong>entrevistas y los grupos focales</strong> generan datos cualitativos: opiniones, emociones y experiencias de las personas frente al prototipo.</p>
+    <p style="margin-top:8px;">Estos datos son <strong>descriptivos y subjetivos</strong>: explican qué piensa el usuario, qué siente y por qué toma ciertas decisiones. Escuchar sus voces permite descubrir percepciones y motivaciones para mejorar la propuesta.</p>
+    <div style="background:var(--morado-claro);border-radius:8px;padding:12px;margin-top:12px;border-left:4px solid var(--morado);">
+      <strong>Recuerda:</strong> los datos cualitativos <em>no se cuentan</em>, se <em>interpretan</em>. Busca patrones, palabras repetidas y emociones comunes.
+    </div>
+  </div>
+
+  <!-- Gráficos cualitativos -->
+  <div class="card azul">
+    <h2>🗂️ Gráficos y herramientas para datos cualitativos</h2>
+    <p>Estos recursos ayudan a organizar e interpretar comentarios, opiniones y testimonios.</p>
+    <div class="graficos-grid">
+      <div class="grafico-card">
+        <span class="tag cuali">Cualitativo</span>
+        <div class="g-title">☁️ Nube de palabras</div>
+        <div class="g-uso"><strong>Uso:</strong> Identificar los términos y opiniones que más se repiten en entrevistas o comentarios.</div>
+        <div class="g-ven">✅ Atractiva y rápida de interpretar visualmente.</div>
+        <div class="g-des">❌ No explica el contexto de cada palabra.</div>
+        <div class="g-ej">Ej: palabras como "fácil", "rápido" y "útil" aparecen con mayor tamaño.</div>
+      </div>
+      <div class="grafico-card">
+        <span class="tag cuali">Cualitativo</span>
+        <div class="g-title">🗃️ Diagrama de afinidad</div>
+        <div class="g-uso"><strong>Uso:</strong> Agrupar ideas o sugerencias relacionadas en temas comunes.</div>
+        <div class="g-ven">✅ Ayuda a encontrar patrones para mejorar el prototipo.</div>
+        <div class="g-des">❌ Requiere revisar y categorizar manualmente las ideas.</div>
+        <div class="g-ej">Ej: agrupa comentarios en usabilidad, diseño y funciones.</div>
+      </div>
+      <div class="grafico-card">
+        <span class="tag cuali">Cualitativo</span>
+        <div class="g-title">🧩 Matriz temática</div>
+        <div class="g-uso"><strong>Uso:</strong> Organizar temas y subtemas para analizar el feedback con profundidad.</div>
+        <div class="g-ven">✅ Relaciona temas y subtemas para un análisis más completo.</div>
+        <div class="g-des">❌ Requiere más tiempo para construirla correctamente.</div>
+        <div class="g-ej">Ej: Usabilidad → facilidad de uso, navegación, claridad.</div>
+      </div>
+      <div class="grafico-card">
+        <span class="tag cuali">Cualitativo</span>
+        <div class="g-title">📑 Tabla de categorización</div>
+        <div class="g-uso"><strong>Uso:</strong> Clasificar comentarios en categorías definidas para organizarlos y compararlos.</div>
+        <div class="g-ven">✅ Facilita comparar y organizar respuestas de muchas personas.</div>
+        <div class="g-des">❌ Puede perder matices si las categorías no están bien definidas.</div>
+        <div class="g-ej">Ej: "no encuentro el botón" → navegación; "me gustan los colores" → diseño.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Analiza tus resultados -->
+  <div class="card verde">
+    <h2>🔎 Analiza tus resultados</h2>
+    <p>Combina ambos tipos de datos para tomar decisiones más completas y justificadas:</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px;">
+      <div style="background:var(--azul-claro);border-radius:10px;padding:14px;border:2px solid var(--azul);">
+        <div style="font-weight:700;color:var(--azul);margin-bottom:6px;">📊 Cuantitativos: tendencias</div>
+        <div style="font-size:.84rem;">Observa cómo cambian los datos y detecta tendencias numéricas.</div>
+      </div>
+      <div style="background:var(--azul-claro);border-radius:10px;padding:14px;border:2px solid var(--azul);">
+        <div style="font-weight:700;color:var(--azul);margin-bottom:6px;">📊 Cuantitativos: cifras clave</div>
+        <div style="font-size:.84rem;">Destaca las cifras que más impactan y ayudan a tomar decisiones.</div>
+      </div>
+      <div style="background:var(--morado-claro);border-radius:10px;padding:14px;border:2px solid var(--morado);">
+        <div style="font-weight:700;color:var(--morado);margin-bottom:6px;">🔬 Cualitativos: patrones</div>
+        <div style="font-size:.84rem;">Reconoce patrones en opiniones y comentarios de los usuarios.</div>
+      </div>
+      <div style="background:var(--morado-claro);border-radius:10px;padding:14px;border:2px solid var(--morado);">
+        <div style="font-weight:700;color:var(--morado);margin-bottom:6px;">🔬 Cualitativos: ideas agrupadas</div>
+        <div style="font-size:.84rem;">Agrupa ideas de entrevistas por temas comunes para encontrar mejoras.</div>
+      </div>
+    </div>
+    <div style="background:var(--verde-claro);border-radius:8px;padding:12px;margin-top:12px;text-align:center;font-size:.9rem;font-weight:700;color:var(--verde);">
+      🎯 Convierte datos en mejoras: usa la evidencia para fortalecer tu prototipo
+    </div>
+  </div>
+
+  <!-- Ejercicio clasificar herramienta y tipo de dato -->
+  <div class="card naranja">
+    <h2>🎯 Ejercicio · Herramienta → Tipo de dato</h2>
+    <p>¿Qué tipo de dato genera cada herramienta? Selecciona cuantitativo o cualitativo:</p>
+    <div style="display:flex;flex-direction:column;gap:10px;margin-top:14px;">
+      <div class="quiz-pregunta" style="padding:14px;">
+        <p>🎙️ Una entrevista a profundidad con un docente sobre sus percepciones del problema genera datos...</p>
+        <div class="opciones">
+          <label class="opcion"><input type="radio" name="d1" value="a"> Cuantitativos</label>
+          <label class="opcion"><input type="radio" name="d1" value="b"> Cualitativos</label>
+        </div>
+        <button class="btn-verificar" onclick="verificarODS('d1','b','fb-d1')">Verificar</button>
+        <div id="fb-d1" class="feedback"></div>
+      </div>
+      <div class="quiz-pregunta" style="padding:14px;">
+        <p>📝 Una encuesta de 50 personas con preguntas de escala 1-5 genera datos...</p>
+        <div class="opciones">
+          <label class="opcion"><input type="radio" name="d2" value="a"> Cuantitativos</label>
+          <label class="opcion"><input type="radio" name="d2" value="b"> Cualitativos</label>
+        </div>
+        <button class="btn-verificar" onclick="verificarODS('d2','a','fb-d2')">Verificar</button>
+        <div id="fb-d2" class="feedback"></div>
+      </div>
+      <div class="quiz-pregunta" style="padding:14px;">
+        <p>💬 En un grupo focal, los participantes expresan por qué sienten que el prototipo es confuso. Esto genera datos...</p>
+        <div class="opciones">
+          <label class="opcion"><input type="radio" name="d3" value="a"> Cuantitativos</label>
+          <label class="opcion"><input type="radio" name="d3" value="b"> Cualitativos</label>
+        </div>
+        <button class="btn-verificar" onclick="verificarODS('d3','b','fb-d3')">Verificar</button>
+        <div id="fb-d3" class="feedback"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Escenario análisis -->
+  <div class="escenario">
+    <div class="titulo">📊 Escenario · Analiza los resultados del prototipo</div>
+    <p style="font-size:.9rem;margin-bottom:10px;">
+      <em>El grupo aplicó una encuesta a 40 estudiantes (datos cuantitativos) y realizó 3 entrevistas a docentes (datos cualitativos). Los resultados muestran que el 75% usaría el prototipo, pero los docentes mencionan que el diseño es "poco claro" y la navegación es "confusa".</em>
+    </p>
+    <strong style="font-size:.88rem;color:var(--naranja);">A. ¿Qué gráfico usarías para representar el 75% de la encuesta? Justifica.</strong>
+    <textarea placeholder="Usaría un gráfico... porque..."></textarea>
+    <strong style="font-size:.88rem;color:var(--naranja);margin-top:12px;display:block;">B. ¿Qué herramienta cualitativa usarías para organizar los comentarios de los docentes?</strong>
+    <textarea placeholder="Usaría... para agrupar los comentarios en categorías como..."></textarea>
+    <strong style="font-size:.88rem;color:var(--naranja);margin-top:12px;display:block;">C. ¿Qué mejora específica haría al prototipo con base en ambos tipos de datos?</strong>
+    <textarea placeholder="Con base en los datos cuantitativos... y los cualitativos... mejoraría..."></textarea>
+  </div>
+
+</section>
+
+<!-- ═══════════════════════════════
+     TAB 5: QUIZ FINAL
+══════════════════════════════════ -->
+<section class="tab-content" id="tab-quiz">
+
+  <div class="card">
+    <h2>✅ Quiz Final · Prueba tus Conocimientos</h2>
+    <p>Responde todas las preguntas y verifica tu puntaje al final. Este quiz cubre todos los temas del período.</p>
+    <div style="background:var(--teal-claro);border-radius:8px;padding:12px;margin-top:10px;font-size:.88rem;">
+      ⏱️ <strong>Consejo:</strong> Lee cada pregunta con calma antes de seleccionar. Recuerda los conceptos de las guías anteriores.
+    </div>
+  </div>
+
+  <div id="quiz-container">
+
+    <div class="quiz-pregunta" data-q="1">
+      <p>1. ¿Cuál es el orden correcto de las fases del Design Thinking?</p>
+      <div class="opciones">
+        <label class="opcion"><input type="radio" name="q1" value="a"> Definir → Empatizar → Idear → Evaluar → Prototipar</label>
+        <label class="opcion"><input type="radio" name="q1" value="b"> Empatizar → Definir → Idear → Prototipar → Evaluar</label>
+        <label class="opcion"><input type="radio" name="q1" value="c"> Idear → Empatizar → Definir → Prototipar → Evaluar</label>
+        <label class="opcion"><input type="radio" name="q1" value="d"> Empatizar → Idear → Definir → Evaluar → Prototipar</label>
+      </div>
+    </div>
+
+    <div class="quiz-pregunta" data-q="2">
+      <p>2. ¿Cuál es la diferencia principal entre una técnica y un instrumento de recolección?</p>
+      <div class="opciones">
+        <label class="opcion"><input type="radio" name="q2" value="a"> La técnica cuesta dinero; el instrumento es gratis</label>
+        <label class="opcion"><input type="radio" name="q2" value="b"> La técnica es la forma general de recolectar (ej: encuesta); el instrumento es el formato concreto con preguntas (ej: formulario)</label>
+        <label class="opcion"><input type="radio" name="q2" value="c"> No hay diferencia, son la misma cosa</label>
+        <label class="opcion"><input type="radio" name="q2" value="d"> El instrumento siempre es digital; la técnica es en papel</label>
+      </div>
+    </div>
+
+    <div class="quiz-pregunta" data-q="3">
+      <p>3. Un grupo necesita saber cuántos estudiantes botan basura diariamente. ¿Qué tipo de dato necesitan?</p>
+      <div class="opciones">
+        <label class="opcion"><input type="radio" name="q3" value="a"> Cualitativo</label>
+        <label class="opcion"><input type="radio" name="q3" value="b"> Cuantitativo</label>
+        <label class="opcion"><input type="radio" name="q3" value="c"> Subjetivo</label>
+        <label class="opcion"><input type="radio" name="q3" value="d"> Descriptivo</label>
+      </div>
+    </div>
+
+    <div class="quiz-pregunta" data-q="4">
+      <p>4. ¿Qué gráfico es más adecuado para mostrar que el 65% de usuarios calificó el prototipo como "bueno", el 25% como "regular" y el 10% como "malo"?</p>
+      <div class="opciones">
+        <label class="opcion"><input type="radio" name="q4" value="a"> Gráfico de líneas</label>
+        <label class="opcion"><input type="radio" name="q4" value="b"> Histograma</label>
+        <label class="opcion"><input type="radio" name="q4" value="c"> Gráfico circular</label>
+        <label class="opcion"><input type="radio" name="q4" value="d"> Diagrama de dispersión</label>
+      </div>
+    </div>
+
+    <div class="quiz-pregunta" data-q="5">
+      <p>5. Para conocer <em>por qué</em> los estudiantes sienten que el agua se desperdicia en el colegio, la mejor técnica es:</p>
+      <div class="opciones">
+        <label class="opcion"><input type="radio" name="q5" value="a"> Encuesta con preguntas cerradas</label>
+        <label class="opcion"><input type="radio" name="q5" value="b"> Lista de chequeo</label>
+        <label class="opcion"><input type="radio" name="q5" value="c"> Entrevista o grupo focal</label>
+        <label class="opcion"><input type="radio" name="q5" value="d"> Histograma</label>
+      </div>
+    </div>
+
+    <div class="quiz-pregunta" data-q="6">
+      <p>6. ¿Qué herramienta cualitativa agrupa comentarios por temas comunes como usabilidad, diseño y funciones?</p>
+      <div class="opciones">
+        <label class="opcion"><input type="radio" name="q6" value="a"> Gráfico de barras</label>
+        <label class="opcion"><input type="radio" name="q6" value="b"> Diagrama de afinidad</label>
+        <label class="opcion"><input type="radio" name="q6" value="c"> Histograma</label>
+        <label class="opcion"><input type="radio" name="q6" value="d"> Gráfico circular</label>
+      </div>
+    </div>
+
+    <div class="quiz-pregunta" data-q="7">
+      <p>7. Una estudiante realiza una observación directa y anota: "El baño del segundo piso no tiene jabón, la caneca está llena y el grifo gotea." ¿Qué tipo de dato registró?</p>
+      <div class="opciones">
+        <label class="opcion"><input type="radio" name="q7" value="a"> Cuantitativo</label>
+        <label class="opcion"><input type="radio" name="q7" value="b"> Cualitativo</label>
+        <label class="opcion"><input type="radio" name="q7" value="c"> Mixto — cuantitativo y cualitativo</label>
+        <label class="opcion"><input type="radio" name="q7" value="d"> Ninguno de los anteriores</label>
+      </div>
+    </div>
+
+    <div class="quiz-pregunta" data-q="8">
+      <p>8. ¿Cuál de las siguientes acciones viola la ética en la recolección de información?</p>
+      <div class="opciones">
+        <label class="opcion"><input type="radio" name="q8" value="a"> Pedir permiso antes de tomar fotos</label>
+        <label class="opcion"><input type="radio" name="q8" value="b"> Registrar respuestas exactamente como las dieron</label>
+        <label class="opcion"><input type="radio" name="q8" value="c"> Inventar respuestas que "parecen correctas"</label>
+        <label class="opcion"><input type="radio" name="q8" value="d"> Evitar pedir datos personales innecesarios</label>
+      </div>
+    </div>
+
+    <div class="quiz-pregunta" data-q="9">
+      <p>9. En el paso a paso para recolectar información, ¿cuál es el paso ANTES de aplicar la herramienta?</p>
+      <div class="opciones">
+        <label class="opcion"><input type="radio" name="q9" value="a"> Guardar evidencias</label>
+        <label class="opcion"><input type="radio" name="q9" value="b"> Elegir población</label>
+        <label class="opcion"><input type="radio" name="q9" value="c"> Diseñar el instrumento</label>
+        <label class="opcion"><input type="radio" name="q9" value="d"> Definir el problema</label>
+      </div>
+    </div>
+
+    <div class="quiz-pregunta" data-q="10">
+      <p>10. Un equipo tiene estos datos: encuesta muestra que el 80% usaría el prototipo, y la entrevista revela que "la interfaz es confusa". ¿Cuál es la acción más adecuada?</p>
+      <div class="opciones">
+        <label class="opcion"><input type="radio" name="q10" value="a"> Ignorar la entrevista porque el 80% es muy alto</label>
+        <label class="opcion"><input type="radio" name="q10" value="b"> Usar ambos datos: aprovechar el interés del 80% y mejorar la interfaz con base en el feedback cualitativo</label>
+        <label class="opcion"><input type="radio" name="q10" value="c"> Repetir solo la encuesta con más personas</label>
+        <label class="opcion"><input type="radio" name="q10" value="d"> Eliminar el prototipo porque hay críticas</label>
+      </div>
+    </div>
+
+  </div>
+
+  <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px;align-items:center;">
+    <button class="btn-verificar" onclick="calcularQuiz()" style="font-size:1rem;padding:14px 28px;">🎯 Ver mi puntaje final</button>
+    <button class="btn-reset" onclick="resetQuiz()">🔄 Reiniciar quiz</button>
+  </div>
+
+  <div id="puntaje-final" style="display:none;">
+    <h2>🏆 Tu resultado</h2>
+    <div class="gran-numero" id="puntaje-numero">0/10</div>
+    <div id="puntaje-msg" style="font-size:1rem;margin-top:6px;opacity:.9;"></div>
+    <div class="barra-progreso"><div class="barra-fill" id="barra-fill" style="width:0%"></div></div>
+    <div style="margin-top:18px;font-size:.85rem;opacity:.8;">Docente: Luis Enrique Suárez Velásquez · CASD José Prudencio Padilla</div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:16px;">
+      <button onclick="abrirReporte()" style="background:rgba(255,255,255,.2);color:#fff;border:2px solid rgba(255,255,255,.4);border-radius:8px;padding:10px 22px;font-size:.9rem;font-weight:700;cursor:pointer;">📋 Ver reporte detallado</button>
+      <button class="btn-pdf" onclick="descargarPDF()">⬇️ Descargar PDF</button>
+    </div>
+  </div>
+
+</section>
+
+</main>
+
+<!-- MODAL REPORTE -->
+<div class="modal-overlay" id="modal-reporte" style="display:none;" onclick="if(event.target===this)cerrarReporte()">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h3>📋 Reporte de Resultados · Grado 10°</h3>
+      <button class="modal-close" onclick="cerrarReporte()">✕</button>
+    </div>
+    <div class="modal-body" id="modal-contenido"></div>
+  </div>
+</div>
+
+<script>
+// ── TABS ─────────────────────────────────────────
+function cambiarTab(id, btn) {
+  document.querySelectorAll('.tab-content').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('nav.tabs button').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ── REGISTRO ─────────────────────────────────────
+function actualizarRegistro() {
+  const n = document.getElementById('est-nombre').value.trim();
+  const g = document.getElementById('est-grado').value;
+  const ok = document.getElementById('registro-ok');
+  const aviso = document.getElementById('aviso-registro');
+  if (n.length >= 6 && g) {
+    ok.style.display = 'flex';
+    aviso.style.display = 'none';
+  } else {
+    ok.style.display = 'none';
+    aviso.style.display = 'block';
+  }
+}
+
+// ── VERIFICAR ODS/QUIZ INDIVIDUAL ───────────────
+function verificarODS(name, correcta, fbId) {
+  const sel = document.querySelector(`input[name="${name}"]:checked`);
+  const fb = document.getElementById(fbId);
+  if (!sel) { fb.className = 'feedback mal'; fb.style.display='block'; fb.textContent = '⚠️ Selecciona una opción primero.'; return; }
+  document.querySelectorAll(`input[name="${name}"]`).forEach(r => {
+    const op = r.closest('.opcion');
+    op.classList.remove('correcta','incorrecta','seleccionada');
+    if (r.value === correcta) op.classList.add('correcta');
+    else if (r.checked) op.classList.add('incorrecta');
+    r.disabled = true;
+  });
+  if (sel.value === correcta) {
+    fb.className = 'feedback ok'; fb.textContent = '✅ ¡Correcto! Muy bien.';
+  } else {
+    fb.className = 'feedback mal'; fb.textContent = '❌ Incorrecto. Revisa la opción correcta marcada en verde.';
+  }
+}
+
+// ── EJERCICIO 1: FASES DT ────────────────────────
+function verificarEjercicio1() {
+  const r = {e1:'Empatizar', e2:'Prototipar', e3:'Evaluar', e4:'Definir'};
+  let ok=0; let total=4;
+  Object.entries(r).forEach(([id, val]) => {
+    const sel = document.getElementById(id);
+    if(sel && sel.value === val) ok++;
+  });
+  const fb = document.getElementById('fb-e1');
+  if(ok === total) {
+    fb.className='feedback ok'; fb.textContent='🎉 ¡Todas correctas! Conoces bien las fases del Design Thinking.';
+  } else if(ok > 0) {
+    fb.className='feedback mal'; fb.textContent=`⚠️ Vas bien: ${ok}/${total} correctas. Sigue revisando las que faltan.`;
+  } else {
+    fb.style.display='none';
+  }
+}
+
+// ── QUIZ FINAL ───────────────────────────────────
+const RESPUESTAS = {q1:'b',q2:'b',q3:'b',q4:'c',q5:'c',q6:'b',q7:'b',q8:'c',q9:'c',q10:'b'};
+
+// Retroalimentación personalizada por pregunta
+const RETROALIMENTACION = {
+  q1: 'Las fases del Design Thinking van en orden: Empatizar (conocer) → Definir (precisar el problema) → Idear (pensar soluciones) → Prototipar (construir) → Evaluar (mejorar con evidencia).',
+  q2: 'La técnica es la forma general (encuesta, entrevista), la herramienta es el medio para aplicarla (Google Forms, cuaderno) y el instrumento es el formato concreto con preguntas (formulario, guía).',
+  q3: 'Cuando necesitamos saber "cuántos", "cuánto" o "con qué frecuencia", el dato es cuantitativo porque se expresa en números y cantidades.',
+  q4: 'El gráfico circular (torta) es ideal para representar proporciones o porcentajes de un total, como el 65%-25%-10% de las calificaciones.',
+  q5: 'Para entender el "por qué" detrás de una situación se usa la entrevista o el grupo focal, ya que permiten profundizar en experiencias y percepciones subjetivas.',
+  q6: 'El diagrama de afinidad es la herramienta cualitativa que agrupa ideas o comentarios en temas comunes como usabilidad, diseño y funciones.',
+  q7: 'Las anotaciones descriptivas de una observación directa (sin números) son datos cualitativos: describen lo que se observa sin medirlo.',
+  q8: 'Inventar respuestas viola la ética de la recolección de información. Siempre se deben registrar las respuestas reales y completas tal como las dieron los participantes.',
+  q9: 'El paso previo a "Aplicar" es "Diseñar el instrumento" (preguntas, criterios o tabla de registro). El orden es: Definir → Elegir población → Seleccionar herramienta → Diseñar instrumento → Aplicar → Guardar evidencias.',
+  q10: 'La mejor práctica es combinar ambos tipos de datos: los cuantitativos muestran el interés general y los cualitativos revelan qué mejorar. Ignorar uno de los dos empobrece el análisis.'
+};
+
+function calcularQuiz() {
+  let correctas = 0;
+  const detalles = [];
+  Object.entries(RESPUESTAS).forEach(([q, cor]) => {
+    const sel = document.querySelector(`input[name="${q}"]:checked`);
+    const num = q.replace('q','');
+    const textoPregunta = document.querySelector(`.quiz-pregunta[data-q="${num}"] p`)?.textContent || '';
+    // Capturar texto de la opción seleccionada y la correcta
+    let textoSeleccionado = '(Sin respuesta)';
+    let textoCorrect = '';
+    document.querySelectorAll(`input[name="${q}"]`).forEach(r => {
+      const op = r.closest('.opcion');
+      const labelTxt = op.textContent.trim();
+      op.classList.remove('correcta','incorrecta');
+      if (r.value === cor) { op.classList.add('correcta'); textoCorrect = labelTxt; }
+      else if (r.checked) op.classList.add('incorrecta');
+      if (r.checked) textoSeleccionado = labelTxt;
+      r.disabled = true;
+    });
+    const esCor = sel && sel.value === cor;
+    if (esCor) correctas++;
+    detalles.push({
+      num,
+      pregunta: textoPregunta,
+      seleccionado: textoSeleccionado,
+      correctaTexto: textoCorrect,
+      correcta: esCor,
+      retro: RETROALIMENTACION[q] || ''
+    });
+  });
+  const pct = Math.round(correctas/10*100);
+  const box = document.getElementById('puntaje-final');
+  box.style.display = 'block';
+  document.getElementById('puntaje-numero').textContent = correctas + '/10';
+  const msg = pct>=90?'🌟 ¡Excelente! Estás muy bien preparado/a.':pct>=70?'👍 ¡Buen trabajo! Repasa los temas que fallaste.':pct>=50?'📖 Vas por buen camino. Dedica más tiempo al repaso.':'💪 No te rindas. Vuelve a revisar las secciones de la guía.';
+  document.getElementById('puntaje-msg').textContent = msg;
+  document.getElementById('barra-fill').style.width = pct+'%';
+  box.scrollIntoView({behavior:'smooth'});
+  window._quizDetalles = detalles;
+  window._quizCorrect = correctas;
+}
+
+function resetQuiz() {
+  document.querySelectorAll('#quiz-container input[type=radio]').forEach(r => { r.checked=false; r.disabled=false; });
+  document.querySelectorAll('#quiz-container .opcion').forEach(o => o.classList.remove('correcta','incorrecta','seleccionada'));
+  document.getElementById('puntaje-final').style.display='none';
+  document.getElementById('barra-fill').style.width='0%';
+}
+
+// ── PDF DOWNLOAD ──────────────────────────────────────
+function descargarPDF() {
+  if (!window._quizDetalles) { alert('Primero completa y envía el quiz.'); return; }
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({ unit: 'mm', format: 'a4' });
+
+  const nombre = document.getElementById('est-nombre').value.trim() || '(Sin nombre)';
+  const grado  = document.getElementById('est-grado').value || '(Sin grado)';
+  const correctas = window._quizCorrect ?? 0;
+  const nota = (correctas / 10 * 5).toFixed(1);
+  const pct  = Math.round(correctas / 10 * 100);
+  const fecha = new Date().toLocaleDateString('es-CO', {year:'numeric', month:'long', day:'numeric'});
+  const detalles = window._quizDetalles;
+
+  const PW = 210, ML = 15, MR = 15, CW = PW - ML - MR;
+  let y = 0;
+
+  // ── helpers ──
+  const color = (r,g,b) => doc.setTextColor(r,g,b);
+  const font  = (style, size) => { doc.setFont('helvetica', style); doc.setFontSize(size); };
+  const fill  = (r,g,b) => doc.setFillColor(r,g,b);
+  const draw  = (r,g,b) => doc.setDrawColor(r,g,b);
+
+  function needsPage(h) {
+    if (y + h > 280) { doc.addPage(); y = 15; }
+  }
+
+  function wrapText(text, x, startY, maxW, lineH) {
+    const lines = doc.splitTextToSize(String(text), maxW);
+    lines.forEach(line => { needsPage(lineH); doc.text(line, x, startY); startY += lineH; y = startY; });
+    return startY;
+  }
+
+  // ── HEADER ──
+  fill(14, 138, 138); doc.rect(0, 0, PW, 32, 'F');
+  color(255,255,255); font('bold', 13);
+  doc.text('CASD José Prudencio Padilla · Barrancabermeja', PW/2, 10, {align:'center'});
+  font('bold', 16);
+  doc.text('REPORTE DE QUIZ — DESIGN THINKING', PW/2, 19, {align:'center'});
+  font('normal', 10);
+  doc.text('Grado 10° · Recolección de Información', PW/2, 27, {align:'center'});
+  y = 38;
+
+  // ── STUDENT INFO BOX ──
+  fill(224,245,245); draw(14,138,138); doc.setLineWidth(0.3);
+  doc.roundedRect(ML, y, CW, 28, 3, 3, 'FD');
+  color(14,138,138); font('bold', 10);
+  doc.text('👤  DATOS DEL ESTUDIANTE', ML+4, y+7);
+  color(40,40,40); font('normal', 10);
+  doc.text(`Nombre:  ${nombre}`, ML+4, y+14);
+  doc.text(`Grado:   ${grado}`, ML+4, y+20);
+  doc.text(`Fecha:   ${fecha}`, ML+4, y+26);
+  y += 34;
+
+  // ── SCORE BOX ──
+  const scoreColor = correctas >= 7 ? [39,174,96] : correctas >= 5 ? [243,156,18] : [192,57,43];
+  fill(...scoreColor); doc.roundedRect(ML, y, CW, 18, 3, 3, 'F');
+  color(255,255,255); font('bold', 12);
+  doc.text(`Resultado: ${correctas}/10   ·   ${pct}%   ·   Nota estimada: ${nota} / 5.0`, PW/2, y+11, {align:'center'});
+  y += 24;
+
+  // ── SECTION TITLE ──
+  color(14,138,138); font('bold', 11);
+  needsPage(8); doc.text('RETROALIMENTACIÓN POR PREGUNTA', ML, y); y += 6;
+  draw(14,138,138); doc.setLineWidth(0.5);
+  doc.line(ML, y, ML+CW, y); y += 5;
+
+  // ── QUESTION BLOCKS ──
+  detalles.forEach((d, i) => {
+    const bgOk  = [236, 253, 245];
+    const bgErr = [255, 243, 243];
+    const acOk  = [39, 174, 96];
+    const acErr = [192, 57, 43];
+    const bg  = d.correcta ? bgOk  : bgErr;
+    const ac  = d.correcta ? acOk  : acErr;
+    const ico = d.correcta ? '✓' : '✗';
+
+    // measure block height
+    const pLines = doc.splitTextToSize(`Pregunta ${d.num}: ${d.pregunta}`, CW - 8);
+    const sLines = doc.splitTextToSize(`Tu respuesta: ${d.seleccionado}`, CW - 8);
+    const cLines = doc.splitTextToSize(`Respuesta correcta: ${d.correctaTexto}`, CW - 8);
+    const rLines = doc.splitTextToSize(`Retroalimentación: ${d.retro}`, CW - 8);
+    const blockH = 6 + (pLines.length + sLines.length + cLines.length + rLines.length) * 5 + 4;
+
+    needsPage(blockH);
+
+    fill(...bg); draw(...ac); doc.setLineWidth(0.4);
+    doc.roundedRect(ML, y, CW, blockH, 2, 2, 'FD');
+
+    // colored left strip
+    fill(...ac); doc.rect(ML, y, 4, blockH, 'F');
+
+    // icon
+    color(...ac); font('bold', 11);
+    doc.text(ico, ML + 9, y + 6.5);
+
+    let ty = y + 6;
+
+    // question
+    color(30,30,30); font('bold', 9);
+    pLines.forEach(l => { doc.text(l, ML+14, ty); ty += 5; });
+
+    // student's answer
+    font('normal', 9);
+    color(d.correcta ? 39 : 192, d.correcta ? 120 : 57, d.correcta ? 80 : 43);
+    sLines.forEach(l => { doc.text(l, ML+14, ty); ty += 5; });
+
+    // correct answer
+    color(39,120,80); font('bold', 9);
+    cLines.forEach(l => { doc.text(l, ML+14, ty); ty += 5; });
+
+    // retro
+    color(60,60,60); font('italic', 8.5);
+    rLines.forEach(l => { doc.text(l, ML+14, ty); ty += 5; });
+
+    y += blockH + 4;
+  });
+
+  // ── FOOTER ──
+  needsPage(14);
+  y += 4;
+  fill(14,138,138); doc.rect(0, y, PW, 14, 'F');
+  color(255,255,255); font('normal', 8);
+  doc.text('Guía interactiva CASD · Grado 10° · Design Thinking y Recolección de Información', PW/2, y+6, {align:'center'});
+  doc.text(`Generado el ${fecha}`, PW/2, y+11, {align:'center'});
+
+  const safeName = nombre.replace(/[^a-z0-9áéíóúñ ]/gi,'_').replace(/ /g,'_');
+  doc.save(`Reporte_Quiz_${safeName}_${grado}.pdf`);
+}
+
+// ── REPORTE MODAL ──────────────────────────────────────
+function abrirReporte() {
+  const nombre = document.getElementById('est-nombre').value.trim() || '(Sin nombre)';
+  const grado = document.getElementById('est-grado').value || '(Sin grado)';
+  const correctas = window._quizCorrect ?? 0;
+  const detalles = window._quizDetalles ?? [];
+  const nota = (correctas/10*5).toFixed(1);
+  const fecha = new Date().toLocaleDateString('es-CO',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+
+  let textoPlano = `REPORTE · DESIGN THINKING · GRADO 10°\nNombre: ${nombre}\nGrado: ${grado}\nFecha: ${fecha}\nResultado: ${correctas}/10 · ${Math.round(correctas/10*100)}% · Nota: ${nota}/5.0\n\n`;
+
+  let html = `
+    <div class="reporte-bloque">
+      <h4>👤 Datos del estudiante</h4>
+      <div class="reporte-item"><span class="ri-label">Nombre:</span><span class="ri-val">${nombre}</span></div>
+      <div class="reporte-item"><span class="ri-label">Grado:</span><span class="ri-val">${grado}</span></div>
+      <div class="reporte-item"><span class="ri-label">Fecha:</span><span class="ri-val">${fecha}</span></div>
+    </div>
+    <div class="reporte-bloque">
+      <h4>📊 Resultado del Quiz</h4>
+      <div class="reporte-item"><span class="ri-label">Respuestas correctas:</span><span class="ri-val">${correctas}/10</span></div>
+      <div class="reporte-item"><span class="ri-label">Porcentaje:</span><span class="ri-val">${Math.round(correctas/10*100)}%</span></div>
+      <div class="reporte-item"><span class="ri-label">Nota estimada:</span><span class="ri-val">${nota}/5.0</span></div>
+    </div>
+    <div class="reporte-bloque">
+      <h4>📋 Retroalimentación por pregunta</h4>
+      ${detalles.map(d => {
+        textoPlano += `P${d.num}: ${d.correcta?'✅ Correcta':'❌ Incorrecta'}\nTu respuesta: ${d.seleccionado}\nCorrecta: ${d.correctaTexto}\nRetroalimentación: ${d.retro}\n\n`;
+        return `<div style="margin-bottom:14px;padding:12px;border-radius:8px;background:${d.correcta?'#ecfdf5':'#fff3f3'};border-left:4px solid ${d.correcta?'#27ae60':'#c0392b'};">
+          <div style="font-weight:700;font-size:.85rem;color:#333;margin-bottom:4px;">${d.correcta?'✅':'❌'} Pregunta ${d.num}</div>
+          <div style="font-size:.82rem;color:#555;margin-bottom:3px;"><strong>Tu respuesta:</strong> ${d.seleccionado}</div>
+          <div style="font-size:.82rem;color:#27ae60;margin-bottom:6px;"><strong>Correcta:</strong> ${d.correctaTexto}</div>
+          <div style="font-size:.8rem;color:#444;font-style:italic;background:rgba(0,0,0,.04);padding:6px 8px;border-radius:5px;">${d.retro}</div>
+        </div>`;
+      }).join('')}
+    </div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:16px;">
+      <button class="btn-copiar" onclick="copiarReporte()">📋 Copiar texto</button>
+      <span class="copiado-msg" id="copiado-msg">¡Copiado!</span>
+    </div>`;
+  document.getElementById('modal-contenido').innerHTML = html;
+  document.getElementById('modal-reporte').style.display = 'flex';
+  window._reporteTexto = textoPlano;
+}
+
+function cerrarReporte() { document.getElementById('modal-reporte').style.display='none'; }
+
+function copiarReporte() {
+  navigator.clipboard.writeText(window._reporteTexto||'').then(()=>{
+    const msg = document.getElementById('copiado-msg');
+    if(msg){ msg.style.display='inline'; setTimeout(()=>msg.style.display='none',2000); }
+  });
+}
+
+// Opción: marcar seleccionada visualmente
+document.addEventListener('change', function(e) {
+  if(e.target.type==='radio') {
+    const name = e.target.name;
+    document.querySelectorAll(`input[name="${name}"]`).forEach(r => {
+      r.closest('.opcion').classList.remove('seleccionada');
+    });
+    e.target.closest('.opcion').classList.add('seleccionada');
+  }
+});
+</script>
+</body>
+</html>
